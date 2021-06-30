@@ -1,5 +1,11 @@
 <template>
-  <div draggable @dragstart.self="onDrag" @dragover.prevent @dragenter.prevent>
+  <div
+    draggable
+    @dragstart.self="onDrag"
+    @dragover.prevent
+    @dragenter.prevent
+    v-on="$listeners"
+  >
     <slot />
   </div>
 </template>
@@ -17,7 +23,7 @@ export default {
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.dropEffect = 'move'
 
-      e.dataTransfer.setData('payload', JSON.stringify(this.transferData))
+      e.dataTransfer.setData('text', JSON.stringify(this.transferData))
     }
   }
 }
