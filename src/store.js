@@ -27,11 +27,20 @@ export default new Vuex.Store({
   },
   mutations: {
     CREATE_TASK(state, { tasks, name }) {
-      tasks.push({ name, id: uuid(), description: '' })
+      tasks.push({
+        name,
+        id: uuid(),
+        description: ''
+      })
     },
-    UPDATE_TASK(state, { task, property, newValue }) {
-      task[property] = newValue
-      // Vue.set(task, property, newValue)
+    CREATE_COLUMN(state, { name }) {
+      state.board.columns.push({
+        name,
+        tasks: []
+      })
+    },
+    UPDATE_TASK(state, { task, key, value }) {
+      task[key] = value
     },
     MOVE_TASK(state, { fromTasks, toTasks, fromTaskIndex, toTaskIndex }) {
       const taskToMove = fromTasks.splice(fromTaskIndex, 1)[0]
@@ -39,6 +48,7 @@ export default new Vuex.Store({
     },
     MOVE_COLUMN(state, { fromColumnIndex, toColumnIndex }) {
       const columnList = state.board.columns
+
       const columnToMove = columnList.splice(fromColumnIndex, 1)[0]
       columnList.splice(toColumnIndex, 0, columnToMove)
     }
